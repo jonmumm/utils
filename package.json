@@ -1,0 +1,19 @@
+{
+  "name": "@jonmumm/utils",
+  "version": "1.0.0",
+  "description": "Typescript utils",
+  "type": "module",
+  "main": "./src/catchErrorTyped.ts",
+  "types": "./src/catchErrorTyped.ts",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    "./catchErrorTyped": {
+      "types": "./src/catchErrorTyped.ts",
+      "default": "./src/catchErrorTyped.ts"
+    }
+  },
+  "author": "",
+  "license": "ISC"
+}
