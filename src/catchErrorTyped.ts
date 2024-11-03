@@ -1,15 +1,15 @@
-export function catchErrorTyped<T, E extends Error = Error>(
+export function catchErrorTyped<T, E extends new (message?: string) => Error>(
   promise: Promise<T>,
-  errorsToCatch?: Array<new (...args: unknown[]) => E>
-): Promise<[E | undefined, T | undefined]> {
+  errorsToCatch?: E[]
+): Promise<[undefined, T] | [InstanceType<E>]> {
   return promise
     .then((data) => [undefined, data] as [undefined, T])
     .catch((error) => {
-      if (!errorsToCatch) {
-        return [error as E, undefined];
+      if (errorsToCatch == undefined) {
+        return [error];
       }
-      if (errorsToCatch.some((ErrorClass) => error instanceof ErrorClass)) {
-        return [error as E, undefined];
+      if (errorsToCatch.some(e => error instanceof e)) {
+        return [error];
       }
       throw error;
     });
