@@ -43,15 +43,15 @@ Promise resolving to a tuple:
 import { catchErrorTyped } from "@jonmumm/utils/catchErrorTyped";
 
 async function example() {
-  const [error, data] = await catchErrorTyped(fetchUserData(123));
+  const [error, user] = await catchErrorTyped(getUser(123));
 
   if (error) {
-    console.error("Failed to fetch user:", error.message);
+    console.log("There was an error", error.message);
     return;
   }
 
-  // TypeScript knows data is defined here
-  console.log("User data:", data);
+  // TypeScript knows user is defined here
+  console.log(user);
 }
 ```
 
@@ -64,21 +64,22 @@ class NotFoundError extends Error {}
 class ValidationError extends Error {}
 
 async function example() {
-  const [error, data] = await catchErrorTyped(fetchUserData(123), [
+  const [error, user] = await catchErrorTyped(getUser(123), [
     NotFoundError,
-    ValidationError,
+    ValidationError
   ]);
 
   if (error) {
     if (error instanceof NotFoundError) {
       console.error("User not found");
-    } else if (error instanceof ValidationError) {
+    } else {
       console.error("Invalid user ID");
     }
     return;
   }
 
-  console.log("User data:", data);
+  // TypeScript knows user is defined here
+  console.log(user);
 }
 ```
 
