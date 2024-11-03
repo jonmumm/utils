@@ -10,14 +10,14 @@ npm install @jonmumm/utils
 
 ## API Documentation
 
-### `catchErrorTyped`
+### `catchError`
 
 A typed error handling utility that returns a tuple of `[error, data]`. This pattern helps avoid try/catch blocks and provides better type safety.
 
 #### Signature
 
 ```typescript
-function catchErrorTyped<T, E extends Error = Error>(
+function catchError<T, E extends Error = Error>(
   promise: Promise<T>,
   errorsToCatch?: Array<new (...args: unknown[]) => E>
 ): Promise<[E | undefined, T | undefined]>;
@@ -40,10 +40,10 @@ Promise resolving to a tuple:
 ### Basic Usage
 
 ```typescript
-import { catchErrorTyped } from "@jonmumm/utils/catchErrorTyped";
+import { catchError } from "@jonmumm/utils/catchError";
 
 async function example() {
-  const [error, user] = await catchErrorTyped(getUser(123));
+  const [error, user] = await catchError(getUser(123));
 
   if (error) {
     console.log("There was an error", error.message);
@@ -58,13 +58,13 @@ async function example() {
 ### Catching Specific Errors
 
 ```typescript
-import { catchErrorTyped } from "@jonmumm/utils/catchErrorTyped";
+import { catchError } from "@jonmumm/utils/catchError";
 
 class NotFoundError extends Error {}
 class ValidationError extends Error {}
 
 async function example() {
-  const [error, user] = await catchErrorTyped(getUser(123), [
+  const [error, user] = await catchError(getUser(123), [
     NotFoundError,
     ValidationError
   ]);
