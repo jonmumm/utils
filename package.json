@@ -1,6 +1,6 @@
 {
   "name": "@jonmumm/utils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Typescript utils",
   "type": "module",
   "files": [
@@ -10,6 +10,10 @@
     "./catchError": {
       "types": "./src/catchError.ts",
       "default": "./src/catchError.ts"
+    },
+    "./invariant": {
+      "types": "./src/invariant.ts",
+      "default": "./src/invariant.ts"
     }
   },
   "author": "",
